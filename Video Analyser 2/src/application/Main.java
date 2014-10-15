@@ -8,7 +8,7 @@ import java.util.Map;
 
 import model.ClipInfo;
 import model.FormatResponse;
-import model.Probe_format;
+import model.Format;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,8 +76,9 @@ public class Main extends Application {
                     {
                         System.out.println(file.getPath());
 					    
-					    p = Runtime.getRuntime().exec("ffprobe -loglevel quiet -print_format json -show_entries format=filename,nb_streams,nb_programs,format_name,format_long_name,start_time,duration,size,bit_rate,probe_score -i " +file.getPath());
-                    
+					 //   p = Runtime.getRuntime().exec("ffprobe -loglevel quiet -print_format json -show_entries format=filename,nb_streams,nb_programs,format_name,format_long_name,start_time,duration,size,bit_rate,probe_score -i " +file.getPath());
+					    p = Runtime.getRuntime().exec("ffprobe -loglevel quiet -print_format json -show_format -i " +file.getPath());
+
 					   // BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 					      
 //				         
@@ -99,7 +100,7 @@ public class Main extends Application {
 										
 					
 					
-					System.out.println(einClip.getFormats().get(0).getBit_rate());
+					System.out.println(einClip.getFormat().getBit_rate());
                     
 					
 					

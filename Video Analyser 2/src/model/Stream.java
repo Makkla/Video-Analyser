@@ -1,12 +1,14 @@
 package model;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
 /**   
  * 
- * F:\>ffprobe -loglevel quiet -print_format json -show_entries format=filename,nb_streams,nb_programs,format_name,format_long_name,start_time,duration,size,bit_rate,probe_score A002C001_140220_R00H.mov
+ * F:\>ffprobe -loglevel quiet -print_format json -show_entries format=filename,nb_streams,nb_programs,format_name,format_long_name,start_time,duration,size,bit_rate,probe_score -i A002C001_140220_R00H.mov
  * 
  * 
  * "format": {
@@ -28,22 +30,80 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
         "timecode": "00:46:50:09"
 **/  
 
+/**
+ * Class that actually holds the elements of the "stream" JSON Objects that are returned when -show_streams is executed
+ * 
+ * Output of ffprobe -loglevel quiet -print_format json -show_streams -i " +file.getPath():
+ * 
+ * "streams": [
+    {
+        "index": 0,
+        "codec_name": "prores",
+        "codec_long_name": "ProRes",
+        "codec_type": "video",
+        "codec_time_base": "1/30000",
+        "codec_tag_string": "apcs",
+        "codec_tag": "0x73637061",
+        "width": 480,
+        "height": 270,
+        "has_b_frames": 0,
+        "sample_aspect_ratio": "0:1",
+        "display_aspect_ratio": "0:1",
+        "pix_fmt": "yuv422p10le",
+        "level": -99,
+        "r_frame_rate": "30000/1001",
+        "avg_frame_rate": "30000/1001",
+        "time_base": "1/30000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 596596,
+        "duration": "19.886533",
+        "bit_rate": "2079294",
+        "nb_frames": "596",
+        "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0
+        },
+        "tags": {
+            "creation_time": "2013-11-20 13:45:53",
+            "language": "eng",
+            "handler_name": "DataHandler"
+        }
+    },
+ *   
+ *  
+ * @author Simon Pott
+ */
 
-
-public class Probe_format
+public class Stream
 {
     
-    private String filename;
+	private short index;
+	
+    private String codec_name;
+    private String codec_long_name;
+
+    
+    
     private int nb_streams;
     private int nb_programs;
-    private String format_name;
     
     private String format_long_name;
     private float start_time;
     private float duration;
-    private double size;
+    private long size;
     private double bit_rate;
     private int probe_score;
+    Map<String, String> tags;
     
     
     public String getFilename()
@@ -106,7 +166,7 @@ public class Probe_format
     {
         return size;
     }
-    public void setSize(double size)
+    public void setSize(long size)
     {
         this.size = size;
     }
@@ -126,6 +186,14 @@ public class Probe_format
     {
         this.probe_score = probe_score;
     }
+	public Map<String, String> getTags() {
+		return tags;
+	}
+	public void setTags(Map<String, String> tags) {
+		this.tags = tags;
+	}
+    
+    
 
 }
     
