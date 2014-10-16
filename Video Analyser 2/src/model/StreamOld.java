@@ -3,13 +3,6 @@ package model;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
 
 
@@ -131,21 +124,32 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
  *  
  * @author Simon Pott
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = As.PROPERTY, property = "@class")
-@JsonSubTypes({ @Type(value = StreamVideo.class, name = "video"), @Type(value = StreamAudio.class, name = "audio") })
-public abstract class Stream
+
+public class StreamOld
 {
     private short index;
-    @JsonProperty ("codec_name")
-	private String name;
+	private String codec_name;
     private String codec_long_name;
     private String codec_type;
     private String codec_time_base;
     private String codec_tag_string;
     private String codec_tag;
     
-
-
+    //Audio only
+    private String sample_fmt;
+    private int sample_rate;
+    private int channels;
+    private String channel_layout;
+    private int bits_per_sample;
+    
+    //video only
+    private int width;
+    private int height;
+    private int has_b_frames;
+    private String sample_aspect_ratio;
+    private String display_aspect_ratio;
+    private String pix_fmt;
+    private int level;
     
     private String r_frame_rate;
     private String avg_frame_rate;
@@ -167,10 +171,10 @@ public abstract class Stream
 		this.index = index;
 	}
 	public String getCodec_name() {
-		return name;
+		return codec_name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setCodec_name(String codec_name) {
+		this.codec_name = codec_name;
 	}
 	public String getCodec_long_name() {
 		return codec_long_name;
@@ -201,6 +205,78 @@ public abstract class Stream
 	}
 	public void setCodec_tag(String codec_tag) {
 		this.codec_tag = codec_tag;
+	}
+	public String getSample_fmt() {
+		return sample_fmt;
+	}
+	public void setSample_fmt(String sample_fmt) {
+		this.sample_fmt = sample_fmt;
+	}
+	public int getSample_rate() {
+		return sample_rate;
+	}
+	public void setSample_rate(int sample_rate) {
+		this.sample_rate = sample_rate;
+	}
+	public int getChannels() {
+		return channels;
+	}
+	public void setChannels(int channels) {
+		this.channels = channels;
+	}
+	public String getChannel_layout() {
+		return channel_layout;
+	}
+	public void setChannel_layout(String channel_layout) {
+		this.channel_layout = channel_layout;
+	}
+	public int getBits_per_sample() {
+		return bits_per_sample;
+	}
+	public void setBits_per_sample(int bits_per_sample) {
+		this.bits_per_sample = bits_per_sample;
+	}
+	public int getWidth() {
+		return width;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	public int getHeight() {
+		return height;
+	}
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	public int getHas_b_frames() {
+		return has_b_frames;
+	}
+	public void setHas_b_frames(int has_b_frames) {
+		this.has_b_frames = has_b_frames;
+	}
+	public String getSample_aspect_ratio() {
+		return sample_aspect_ratio;
+	}
+	public void setSample_aspect_ratio(String sample_aspect_ratio) {
+		this.sample_aspect_ratio = sample_aspect_ratio;
+	}
+	public String getDisplay_aspect_ratio() {
+		return display_aspect_ratio;
+	}
+	public void setDisplay_aspect_ratio(String display_aspect_ratio) {
+		this.display_aspect_ratio = display_aspect_ratio;
+	}
+	public String getPix_fmt() {
+		return pix_fmt;
+	}
+	public void setPix_fmt(String pix_fmt) {
+		this.pix_fmt = pix_fmt;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	public String getR_frame_rate() {
 		return r_frame_rate;

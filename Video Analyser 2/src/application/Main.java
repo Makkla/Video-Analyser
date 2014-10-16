@@ -6,9 +6,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+
 import model.ClipInfo;
 import model.FormatResponse;
 import model.Format;
+import model.StreamResponse;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,7 +61,9 @@ public class Main extends Application {
 			final ObservableList<ClipInfo> data = FXCollections.observableArrayList(
 
 		            );
-			
+			StreamResponse einClip = new StreamResponse();	
+			einClip = mapper.readValue(FileUtils.readFileToByteArray(new File("C:\\Temp\\streamtest.json")), StreamResponse.class);
+			System.out.println(einClip.getStreams().get(0).getTime_base());
 			
 	        openButton.setOnAction(new EventHandler<ActionEvent>() {
 	        					
@@ -66,7 +71,7 @@ public class Main extends Application {
 				public void handle(ActionEvent event) {
 				
 					File file = fileChooser.showOpenDialog(primaryStage);
-					FormatResponse einClip = new FormatResponse();	
+//					StreamResponse einClip = new StreamResponse();	
 					Map<String, Object> jsonMap =
                     null;
 //					ClipInfo clip = new ClipInfo(file.getPath(), file.getName());
@@ -77,12 +82,12 @@ public class Main extends Application {
                         System.out.println(file.getPath());
 					    
 					 //   p = Runtime.getRuntime().exec("ffprobe -loglevel quiet -print_format json -show_entries format=filename,nb_streams,nb_programs,format_name,format_long_name,start_time,duration,size,bit_rate,probe_score -i " +file.getPath());
-					    p = Runtime.getRuntime().exec("ffprobe -loglevel quiet -print_format json -show_format -i " +file.getPath());
+//					    p = Runtime.getRuntime().exec("ffprobe -loglevel quiet -print_format json -show_streams -i " +file.getPath());
 
 					   // BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 					      
-//				         
-					    einClip = mapper.readValue(p.getInputStream(), FormatResponse.class);
+                        	
+					    einClip = mapper.readValue(FileUtils.readFileToByteArray(new File("C:\\Temp\\streamtest.json")), StreamResponse.class);
 					    
 					   // while ((line = input.readLine()) != null) {
 //				            System.out.println(line);
@@ -100,7 +105,7 @@ public class Main extends Application {
 										
 					
 					
-					System.out.println(einClip.getFormat().getBit_rate());
+					System.out.println(einClip.getStreams().get(0).getTime_base());
                     
 					
 					
