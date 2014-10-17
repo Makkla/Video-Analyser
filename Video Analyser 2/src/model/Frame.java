@@ -1,8 +1,8 @@
 package model;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 
 
@@ -15,9 +15,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 **/  
 
 /**
- * Class that actually holds the elements of the "stream" JSON Objects that are returned when -show_streams is executed
+ * Class that actually holds the elements of the "frame" JSON Objects that are returned when -show_frames is executed
  * 
- * Output of ffprobe -loglevel quiet -print_format json -show_streams -i " +file.getPath():
+ * Output of ffprobe -loglevel quiet -print_format json -show_frames -i " +file.getPath():
  * 
  * "frames": [
     {
@@ -65,10 +65,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *  
  * @author Simon Pott
  */
-
-public class Frame
+@JsonTypeInfo(  
+	    use = JsonTypeInfo.Id.NAME,  
+	    include = JsonTypeInfo.As.PROPERTY,  
+	    property = "media_type")  
+@JsonSubTypes({ @Type(value = FrameVideo.class, name = "video"), @Type(value = FrameAudio.class, name = "audio")})
+public abstract class Frame 
 {
-    
+   
 	private String media_type;
     private int key_frame;
     private long pkt_pts;
@@ -83,217 +87,82 @@ public class Frame
     private int pkt_size;
     
     
-    //Audio only
-    private String sample_fmt;
-    private int sample_rate;
-    private int channels;
-    private String channel_layout;
-    private int bits_per_sample;
-    
-    //video only
-    private int width;
-    private int height;
-    private int has_b_frames;
-    private String sample_aspect_ratio;
-    private String display_aspect_ratio;
-    private String pix_fmt;
-    private int level;
-    
-        private String r_frame_rate;
-    private String avg_frame_rate;
-    private String time_base;
-    private int start_pts;
-    private double start_time;
-    private long duration_ts;
-    private double duration;
-    private long bit_rate;
-    private long nb_frames;
-    private Map<String, String> disposition;
-    private Map<String, String> tags;
-	
-    
-    public short getIndex() {
-		return index;
+	public String getMedia_type() {
+		return media_type;
 	}
-	public void setIndex(short index) {
-		this.index = index;
+	public void setMedia_type(String media_type) {
+		this.media_type = media_type;
 	}
-	public String getCodec_name() {
-		return codec_name;
+	public int getKey_frame() {
+		return key_frame;
 	}
-	public void setCodec_name(String codec_name) {
-		this.codec_name = codec_name;
+	public void setKey_frame(int key_frame) {
+		this.key_frame = key_frame;
 	}
-	public String getCodec_long_name() {
-		return codec_long_name;
+	public long getPkt_pts() {
+		return pkt_pts;
 	}
-	public void setCodec_long_name(String codec_long_name) {
-		this.codec_long_name = codec_long_name;
+	public void setPkt_pts(long pkt_pts) {
+		this.pkt_pts = pkt_pts;
 	}
-	public String getCodec_type() {
-		return codec_type;
+	public double getPkt_pts_time() {
+		return pkt_pts_time;
 	}
-	public void setCodec_type(String codec_type) {
-		this.codec_type = codec_type;
+	public void setPkt_pts_time(double pkt_pts_time) {
+		this.pkt_pts_time = pkt_pts_time;
 	}
-	public String getCodec_time_base() {
-		return codec_time_base;
+	public long getPkt_dts() {
+		return pkt_dts;
 	}
-	public void setCodec_time_base(String codec_time_base) {
-		this.codec_time_base = codec_time_base;
+	public void setPkt_dts(long pkt_dts) {
+		this.pkt_dts = pkt_dts;
 	}
-	public String getCodec_tag_string() {
-		return codec_tag_string;
+	public double getPkt_dts_time() {
+		return pkt_dts_time;
 	}
-	public void setCodec_tag_string(String codec_tag_string) {
-		this.codec_tag_string = codec_tag_string;
+	public void setPkt_dts_time(double pkt_dts_time) {
+		this.pkt_dts_time = pkt_dts_time;
 	}
-	public String getCodec_tag() {
-		return codec_tag;
+	public long getBest_effort_timestamp() {
+		return best_effort_timestamp;
 	}
-	public void setCodec_tag(String codec_tag) {
-		this.codec_tag = codec_tag;
+	public void setBest_effort_timestamp(long best_effort_timestamp) {
+		this.best_effort_timestamp = best_effort_timestamp;
 	}
-	public String getSample_fmt() {
-		return sample_fmt;
+	public double getBest_effort_timestamp_time() {
+		return best_effort_timestamp_time;
 	}
-	public void setSample_fmt(String sample_fmt) {
-		this.sample_fmt = sample_fmt;
+	public void setBest_effort_timestamp_time(double best_effort_timestamp_time) {
+		this.best_effort_timestamp_time = best_effort_timestamp_time;
 	}
-	public int getSample_rate() {
-		return sample_rate;
+	public int getPkt_duration() {
+		return pkt_duration;
 	}
-	public void setSample_rate(int sample_rate) {
-		this.sample_rate = sample_rate;
+	public void setPkt_duration(int pkt_duration) {
+		this.pkt_duration = pkt_duration;
 	}
-	public int getChannels() {
-		return channels;
+	public double getPkt_duration_time() {
+		return pkt_duration_time;
 	}
-	public void setChannels(int channels) {
-		this.channels = channels;
+	public void setPkt_duration_time(double pkt_duration_time) {
+		this.pkt_duration_time = pkt_duration_time;
 	}
-	public String getChannel_layout() {
-		return channel_layout;
+	public long getPkt_pos() {
+		return pkt_pos;
 	}
-	public void setChannel_layout(String channel_layout) {
-		this.channel_layout = channel_layout;
+	public void setPkt_pos(long pkt_pos) {
+		this.pkt_pos = pkt_pos;
 	}
-	public int getBits_per_sample() {
-		return bits_per_sample;
+	public int getPkt_size() {
+		return pkt_size;
 	}
-	public void setBits_per_sample(int bits_per_sample) {
-		this.bits_per_sample = bits_per_sample;
+	public void setPkt_size(int pkt_size) {
+		this.pkt_size = pkt_size;
 	}
-	public int getWidth() {
-		return width;
-	}
-	public void setWidth(int width) {
-		this.width = width;
-	}
-	public int getHeight() {
-		return height;
-	}
-	public void setHeight(int height) {
-		this.height = height;
-	}
-	public int getHas_b_frames() {
-		return has_b_frames;
-	}
-	public void setHas_b_frames(int has_b_frames) {
-		this.has_b_frames = has_b_frames;
-	}
-	public String getSample_aspect_ratio() {
-		return sample_aspect_ratio;
-	}
-	public void setSample_aspect_ratio(String sample_aspect_ratio) {
-		this.sample_aspect_ratio = sample_aspect_ratio;
-	}
-	public String getDisplay_aspect_ratio() {
-		return display_aspect_ratio;
-	}
-	public void setDisplay_aspect_ratio(String display_aspect_ratio) {
-		this.display_aspect_ratio = display_aspect_ratio;
-	}
-	public String getPix_fmt() {
-		return pix_fmt;
-	}
-	public void setPix_fmt(String pix_fmt) {
-		this.pix_fmt = pix_fmt;
-	}
-	public int getLevel() {
-		return level;
-	}
-	public void setLevel(int level) {
-		this.level = level;
-	}
-	public String getR_frame_rate() {
-		return r_frame_rate;
-	}
-	public void setR_frame_rate(String r_frame_rate) {
-		this.r_frame_rate = r_frame_rate;
-	}
-	public String getAvg_frame_rate() {
-		return avg_frame_rate;
-	}
-	public void setAvg_frame_rate(String avg_frame_rate) {
-		this.avg_frame_rate = avg_frame_rate;
-	}
-	public String getTime_base() {
-		return time_base;
-	}
-	public void setTime_base(String time_base) {
-		this.time_base = time_base;
-	}
-	public int getStart_pts() {
-		return start_pts;
-	}
-	public void setStart_pts(int start_pts) {
-		this.start_pts = start_pts;
-	}
-	public double getStart_time() {
-		return start_time;
-	}
-	public void setStart_time(double start_time) {
-		this.start_time = start_time;
-	}
-	public long getDuration_ts() {
-		return duration_ts;
-	}
-	public void setDuration_ts(long duration_ts) {
-		this.duration_ts = duration_ts;
-	}
-	public double getDuration() {
-		return duration;
-	}
-	public void setDuration(double duration) {
-		this.duration = duration;
-	}
-	public long getBit_rate() {
-		return bit_rate;
-	}
-	public void setBit_rate(long bit_rate) {
-		this.bit_rate = bit_rate;
-	}
-	public long getNb_frames() {
-		return nb_frames;
-	}
-	public void setNb_frames(long nb_frames) {
-		this.nb_frames = nb_frames;
-	}
-	public Map<String, String> getDisposition() {
-		return disposition;
-	}
-	public void setDisposition(Map<String, String> disposition) {
-		this.disposition = disposition;
-	}
-	public Map<String, String> getTags() {
-		return tags;
-	}
-	public void setTags(Map<String, String> tags) {
-		this.tags = tags;
-	}
+        
 
-    
+
+  
 
 
     

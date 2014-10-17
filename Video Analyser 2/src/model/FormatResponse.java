@@ -1,7 +1,5 @@
 package model;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Class that hold the Top Level "format" JSON Object that is returned when -show_format is executed

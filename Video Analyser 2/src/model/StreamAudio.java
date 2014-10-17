@@ -1,34 +1,32 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-
 public class StreamAudio extends Stream{
 
     //Audio only
+	private String codec_name;
+    private String codec_long_name;
+    
     private String sample_fmt;
     private int sample_rate;
     private int channels;
     private String channel_layout;
     private int bits_per_sample;
-	
     
-    @JsonProperty
-    private String codec_name;
-
-    @JsonCreator
-   	public StreamAudio(@JsonProperty("codec_name") String codec_name) {
-	this.codec_name = codec_name;
+	   
+    
+    public String getCodec_name() {
+		return codec_name;
 	}
-    
-    public String getSample_fmt() {
+	public void setCodec_name(String codec_name) {
+		this.codec_name = codec_name;
+	}
+	public String getCodec_long_name() {
+		return codec_long_name;
+	}
+	public void setCodec_long_name(String codec_long_name) {
+		this.codec_long_name = codec_long_name;
+	}
+	public String getSample_fmt() {
 		return sample_fmt;
 	}
 	public void setSample_fmt(String sample_fmt) {

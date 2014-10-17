@@ -3,7 +3,6 @@ package model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.media.jai.codec.StreamSegment;
 /**
  * Class that hold the Top Level "streams" JSON Object that is returned when -show_streams is executed
  *  
@@ -26,4 +25,5 @@ public class FrameResponse
 	public int getNumberOfFrames(){
 		return frames.size();
 	}
+
 }

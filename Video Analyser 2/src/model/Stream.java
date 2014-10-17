@@ -2,40 +2,10 @@ package model;
 
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
-
-
-/**   
- * 
- * F:\>ffprobe -loglevel quiet -print_format json -show_entries format=filename,nb_streams,nb_programs,format_name,format_long_name,start_time,duration,size,bit_rate,probe_score -i A002C001_140220_R00H.mov
- * 
- * 
- * "format": {
-    "filename": "A002C001_140220_R00H.mov",
-    "nb_streams": 3,
-    "nb_programs": 0,
-    "format_name": "mov,mp4,m4a,3gp,3g2,mj2"
-    "format_long_name": "QuickTime / MOV",
-    "start_time": "0.000000",
-    "duration": "7.800000",
-    "size": "193375760",
-    "bit_rate": "198334112",
-    "probe_score": 100,
-    "tags": {
-        "major_brand": "qt  ",
-        "minor_version": "537199360",
-        "compatible_brands": "qt  ARRI",
-        "creation_time": "2014-02-20 10:57:3
-        "timecode": "00:46:50:09"
-**/  
 
 /**
  * Class that actually holds the elements of the "stream" JSON Objects that are returned when -show_streams is executed
@@ -129,24 +99,56 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
     }
  *   
  *  
+ *  {
+    "index": 2,
+    "codec_type": "data",
+    "codec_time_base": "1/24",
+    "codec_tag_string": "tmcd",
+    "codec_tag": "0x64636d74",
+    "r_frame_rate": "0/0",
+    "avg_frame_rate": "0/0",
+    "time_base": "1/24",
+    "start_pts": 0,
+    "start_time": "0.000000",
+    "duration_ts": 144,
+    "duration": "6.000000",
+    "bit_rate": "5",
+    "nb_frames": "1",
+    "disposition": {
+        "default": 1,
+        "dub": 0,
+        "original": 0,
+        "comment": 0,
+        "lyrics": 0,
+        "karaoke": 0,
+        "forced": 0,
+        "hearing_impaired": 0,
+        "visual_impaired": 0,
+        "clean_effects": 0,
+        "attached_pic": 0
+    },
+    "tags": {
+        "creation_time": "2014-04-12 00:05:31",
+        "language": "eng",
+        "handler_name": "\u0018Apple Alias Data Handler",
+        "timecode": "11:31:09:00"
+    }
+ *  
+ *  
  * @author Simon Pott
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = As.PROPERTY, property = "@class")
-@JsonSubTypes({ @Type(value = StreamVideo.class, name = "video"), @Type(value = StreamAudio.class, name = "audio") })
+@JsonTypeInfo(  
+	    use = JsonTypeInfo.Id.NAME,  
+	    include = JsonTypeInfo.As.PROPERTY,  
+	    property = "codec_type")  
+@JsonSubTypes({ @Type(value = StreamVideo.class, name = "video"), @Type(value = StreamAudio.class, name = "audio"), @Type(value = StreamData.class, name = "data") })
 public abstract class Stream
 {
     private short index;
-    @JsonProperty ("codec_name")
-	private String name;
-    private String codec_long_name;
-    private String codec_type;
+	
     private String codec_time_base;
     private String codec_tag_string;
     private String codec_tag;
-    
-
-
-    
     private String r_frame_rate;
     private String avg_frame_rate;
     private String time_base;
@@ -158,7 +160,7 @@ public abstract class Stream
     private long nb_frames;
     private Map<String, String> disposition;
     private Map<String, String> tags;
-	
+    private int nb_read_frames;
     
     public short getIndex() {
 		return index;
@@ -166,24 +168,13 @@ public abstract class Stream
 	public void setIndex(short index) {
 		this.index = index;
 	}
-	public String getCodec_name() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getCodec_long_name() {
-		return codec_long_name;
-	}
-	public void setCodec_long_name(String codec_long_name) {
-		this.codec_long_name = codec_long_name;
-	}
-	public String getCodec_type() {
-		return codec_type;
-	}
-	public void setCodec_type(String codec_type) {
-		this.codec_type = codec_type;
-	}
+
+//	public String getCodec_type() {
+//		return codec_type;
+//	}
+//	public void setCodec_type(String codec_type) {
+//		this.codec_type = codec_type;
+//	}
 	public String getCodec_time_base() {
 		return codec_time_base;
 	}
@@ -267,6 +258,12 @@ public abstract class Stream
 	}
 	public void setTags(Map<String, String> tags) {
 		this.tags = tags;
+	}
+	public int getNb_read_frames() {
+		return nb_read_frames;
+	}
+	public void setNb_read_frames(int nb_read_frames) {
+		this.nb_read_frames = nb_read_frames;
 	}
 
     

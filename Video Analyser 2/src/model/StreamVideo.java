@@ -1,12 +1,14 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class StreamVideo extends Stream{
 
 	
     //video only
+	private String codec_name;
+    private String codec_long_name;
+    private String codec_type;
     private int width;
     private int height;
     private int has_b_frames;
@@ -14,17 +16,23 @@ public class StreamVideo extends Stream{
     private String display_aspect_ratio;
     private String pix_fmt;
     private int level;
-	
-    
-    @JsonProperty
-    private String codec_name;
+    private int bits_per_raw_sample;
 
-    @JsonCreator
-   	public StreamVideo(@JsonProperty("codec_name") String codec_name) {
-	this.codec_name = codec_name;
-	}
     
-    public int getWidth() {
+    
+    public String getCodec_name() {
+		return codec_name;
+	}
+	public void setCodec_name(String codec_name) {
+		this.codec_name = codec_name;
+	}
+	public String getCodec_long_name() {
+		return codec_long_name;
+	}
+	public void setCodec_long_name(String codec_long_name) {
+		this.codec_long_name = codec_long_name;
+	}
+	public int getWidth() {
 		return width;
 	}
 	public void setWidth(int width) {
@@ -65,6 +73,12 @@ public class StreamVideo extends Stream{
 	}
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	public int getBits_per_raw_sample() {
+		return bits_per_raw_sample;
+	}
+	public void setBits_per_raw_sample(int bits_per_raw_sample) {
+		this.bits_per_raw_sample = bits_per_raw_sample;
 	}
     
     
