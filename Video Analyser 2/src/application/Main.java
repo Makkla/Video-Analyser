@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
+import model.Clip;
 import model.ClipInfo;
 import model.FormatResponse;
 import model.Format;
@@ -61,70 +62,70 @@ public class Main extends Application {
 			final ObservableList<ClipInfo> data = FXCollections.observableArrayList(
 
 		            );
-			StreamResponse einClip = new StreamResponse();	
-			einClip = mapper.readValue(FileUtils.readFileToByteArray(new File("C:\\Temp\\streamtest.json")), StreamResponse.class);
+			Clip einClip = new Clip();	
+			einClip = mapper.readValue((Main.class.getResourceAsStream("/data/output.json")), Clip.class);
 			System.out.println(einClip.getStreams().get(0).getTime_base());
 			
-	        openButton.setOnAction(new EventHandler<ActionEvent>() {
-	        					
-				@Override
-				public void handle(ActionEvent event) {
-				
-					File file = fileChooser.showOpenDialog(primaryStage);
-//					StreamResponse einClip = new StreamResponse();	
-					Map<String, Object> jsonMap =
-                    null;
-//					ClipInfo clip = new ClipInfo(file.getPath(), file.getName());
-					String line;
-					Process p;
-					try
-                    {
-                        System.out.println(file.getPath());
-					    
-					 //   p = Runtime.getRuntime().exec("ffprobe -loglevel quiet -print_format json -show_entries format=filename,nb_streams,nb_programs,format_name,format_long_name,start_time,duration,size,bit_rate,probe_score -i " +file.getPath());
-//					    p = Runtime.getRuntime().exec("ffprobe -loglevel quiet -print_format json -show_streams -i " +file.getPath());
-
-					   // BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-					      
-                        	
-					    einClip = mapper.readValue(FileUtils.readFileToByteArray(new File("C:\\Temp\\streamtest.json")), StreamResponse.class);
-					    
-					   // while ((line = input.readLine()) != null) {
-//				            System.out.println(line);
-//                        
-////                        einClip = mapper.readValue(p.getInputStream(), Probe_format.class);
-//                        
-//				          }
-                        
-                    }
-                    catch (IOException e)
-                    {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-										
-					
-					
-					System.out.println(einClip.getStreams().get(0).getTime_base());
-                    
-					
-					
-//					
-//					if (clip.getCorruptFrameCount()!= 0){
+//	        openButton.setOnAction(new EventHandler<ActionEvent>() {
+//	        					
+//				@Override
+//				public void handle(ActionEvent event) {
+//				
+//					File file = fileChooser.showOpenDialog(primaryStage);
+////					StreamResponse einClip = new StreamResponse();	
+//					Map<String, Object> jsonMap =
+//                    null;
+////					ClipInfo clip = new ClipInfo(file.getPath(), file.getName());
+//					String line;
+//					Process p;
+//					try
+//                    {
+//                        System.out.println(file.getPath());
+//					    
+//					 //   p = Runtime.getRuntime().exec("ffprobe -loglevel quiet -print_format json -show_entries format=filename,nb_streams,nb_programs,format_name,format_long_name,start_time,duration,size,bit_rate,probe_score -i " +file.getPath());
+////					    p = Runtime.getRuntime().exec("ffprobe -loglevel quiet -print_format json -show_streams -i " +file.getPath());
 //
-//						Stage dialogStage = new Stage();
-//						dialogStage.initModality(Modality.WINDOW_MODAL);
-//						dialogStage.setScene(new Scene(VBoxBuilder.create().
-//						    children(new Text("Clip "+clip.getFileName()+" contains "+clip.getCorruptFrameCount()+ " corrupt frames")).
-//						    alignment(Pos.CENTER).padding(new Insets(5)).build()));
-//						dialogStage.show();
-//					}
-//						
+//					   // BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//					      
+//                        	
+////					    einClip = mapper.readValue(FileUtils.readFileToByteArray(new File("C:\\Temp\\streamtest.json")), StreamResponse.class);
+//					    
+//					   // while ((line = input.readLine()) != null) {
+////				            System.out.println(line);
+////                        
+//////                        einClip = mapper.readValue(p.getInputStream(), Probe_format.class);
+////                        
+////				          }
+//                        
+//                    }
+//                    catch (IOException e)
+//                    {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    }
+//										
 //					
-//					data.add(clip);
 //					
-				}
-			});
+////					System.out.println(einClip.getStreams().get(0).getTime_base());
+//                    
+//					
+//					
+////					
+////					if (clip.getCorruptFrameCount()!= 0){
+////
+////						Stage dialogStage = new Stage();
+////						dialogStage.initModality(Modality.WINDOW_MODAL);
+////						dialogStage.setScene(new Scene(VBoxBuilder.create().
+////						    children(new Text("Clip "+clip.getFileName()+" contains "+clip.getCorruptFrameCount()+ " corrupt frames")).
+////						    alignment(Pos.CENTER).padding(new Insets(5)).build()));
+////						dialogStage.show();
+////					}
+////						
+////					
+////					data.add(clip);
+////					
+//				}
+//			});
 	
 	       
 	        

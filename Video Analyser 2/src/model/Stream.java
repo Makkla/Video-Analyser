@@ -144,13 +144,18 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 @JsonSubTypes({ @Type(value = StreamVideo.class, name = "video"), @Type(value = StreamAudio.class, name = "audio"), @Type(value = StreamData.class, name = "data") })
 public abstract class Stream
 {
+    /*
+     * @TODO Alle Datentypen überpruefen
+     */
+    
+    
     private short index;
 	
     private String codec_time_base;
     private String codec_tag_string;
     private String codec_tag;
     private String r_frame_rate;
-    private String avg_frame_rate;
+    private String avg_frame_rate; //maybe with org.apache.commons.lang3.math.Fraction
     private String time_base;
     private int start_pts;
     private double start_time;
