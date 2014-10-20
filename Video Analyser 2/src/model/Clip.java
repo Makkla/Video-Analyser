@@ -31,7 +31,7 @@ public class Clip {
 		this.streams = streams;
 	}
 	
-	public List<FrameAudio> getFrameAudio(){
+	public List<FrameAudio> getFramesAudio(){
 		List<FrameAudio> audioFrames = new ArrayList<FrameAudio>();
 		
 		for(Frame s: frames){
@@ -46,7 +46,22 @@ public class Clip {
 		
 		return audioFrames;
 		
-		
 	}
 	
+	   public List<FrameVideo> getFramesVideo(){
+	        List<FrameVideo> videoFrames = new ArrayList<FrameVideo>();
+	        
+	        for(Frame s: frames){
+	            
+	            if(s.getClass().equals(FrameVideo.class)){
+	                
+	                videoFrames.add((FrameVideo) s);
+	                
+	            }
+	            
+	        }
+	        
+	        return videoFrames;
+	        
+	    }
 }
