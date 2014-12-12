@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 
 import model.Clip;
 import model.ClipInfo;
+import model.CodecProperties;
 import model.FormatResponse;
 import model.Format;
 import model.StreamResponse;
@@ -62,9 +63,13 @@ public class Main extends Application {
 			final ObservableList<ClipInfo> data = FXCollections.observableArrayList(
 
 		            );
+			CodecProperties codecProperties = new CodecProperties();
 			Clip einClip = new Clip();	
 			einClip = mapper.readValue((Main.class.getResourceAsStream("/data/output.json")), Clip.class);
-			System.out.println(einClip.getStreams().get(0).getTime_base());
+			System.out.println(einClip.getFormat().getFormat_long_name());
+			System.out.println(einClip.getFormat().getFormat_name());
+			System.out.println(einClip.getStreams().get(0).getCodec_tag_string());
+			System.out.println(CodecProperties.getMaxBitrateVideo(einClip.getStreams().get(0).getCodec_tag_string()));
 			
 //	        openButton.setOnAction(new EventHandler<ActionEvent>() {
 //	        					

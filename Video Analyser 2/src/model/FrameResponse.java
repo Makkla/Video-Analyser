@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 /**
- * Class that hold the Top Level "streams" JSON Object that is returned when -show_streams is executed
+ * Class that holds the Top Level "streams" JSON Object that is returned when -show_streams is executed
  *  
  * @author Simon Pott
  */
