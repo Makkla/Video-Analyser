@@ -45,23 +45,23 @@ public class Clip {
 		}
 		
 		return audioFrames;
-		
-	}
 	
+	}
+
 	public List<FrameVideo> getFramesVideo(){
-		List<FrameVideo> videoFrames = new ArrayList<FrameVideo>();
-		
-		for(Frame s: frames){
-			
-			if(s.getClass().equals(FrameVideo.class)){
-				
-				videoFrames.add((FrameVideo) s);
-				
-			}
-			
-		}
-		
-		return videoFrames;
-		
+	        List<FrameVideo> videoFrames = new ArrayList<FrameVideo>();
+	        
+	        for(Frame s: frames){
+	            
+	            if(s.getClass().equals(FrameVideo.class)){
+	                
+	                videoFrames.add((FrameVideo) s);
+	                
+	            }
+	            
+	        }
+	        
+	        return videoFrames;
+	        
 	}
 }
