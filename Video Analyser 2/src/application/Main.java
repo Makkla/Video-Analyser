@@ -35,6 +35,9 @@ import javafx.geometry.Pos;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 public class Main extends Application {
+	
+	private String osSystem=System.getProperty("os.name");
+	
 	@Override
 	
 	
@@ -70,6 +73,22 @@ public class Main extends Application {
 			System.out.println(einClip.getFormat().getFormat_name());
 			System.out.println(einClip.getStreams().get(0).getCodec_tag_string());
 			System.out.println(CodecProperties.getMaxBitrateVideo(einClip.getStreams().get(0).getCodec_tag_string()));
+			
+
+			Process p;
+			
+			p = Runtime.getRuntime().exec(getFfprobeVersion()+" -h");
+			
+			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			String line;
+			while ((line = input.readLine()) != null) {
+            System.out.println(line);
+            
+            
+
+          }
+
+			
 			
 //	        openButton.setOnAction(new EventHandler<ActionEvent>() {
 //	        					
@@ -202,8 +221,29 @@ public class Main extends Application {
 	}
 	
 	
-	
-	
+	private String getFfprobeVersion(){
+		
+		String ffprobe = null;
+		
+		if(osSystem.contains("Windows")) {
+			
+			ffprobe=getClass().getResource("/resources/fftools/windows/ffprobe.exe").getPath(); 
+			ffprobe=ffprobe.substring(1, ffprobe.length());
+			ffprobe=ffprobe.replaceAll("%20", " ");
+			
+		}
+		else if(osSystem.contains("Linux")){
+			
+			
+			
+		}
+			
+		else if(osSystem.contains("Mac")) {
+			
+		}
+		
+		 return ffprobe;
+	}
 	
 	public static void main(String[] args) {
 		launch(args);
